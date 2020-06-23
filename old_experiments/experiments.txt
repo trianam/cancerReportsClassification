@@ -1,0 +1,26 @@
+base:		1 LSTM layer 100 cell, 1 output layer
+bidirectional:	1 bi-LSTM layer, 1 output
+bi1hidd:	1 bi-LSTM layer, 1 hidden layer, 1 output layer
+bi2hidd:	1 bi-LSTM layer, 2 hidden layer, 1 output layer
+bideep:		2 bi-LSTM layer, 2 hidden layer, 1 output layer
+bi50cell1hidd:	1 bi-LSTM layer 50 cells, 1 hidden layer, 1 output layer
+bi1hidd128neur: 1 bi-LSTM layer, 1 hidden layer 128 neur, 1 output layer
+bi20cell1hidd:	1 bi-LSTM layer 20 cells, 1 hidden layer, 1 output layer
+bi50cell1hiddNoLstm:	1 dense layer 50 neurons, 1 hidden layer, 1 output layer
+bi50cell1hiddNoLstmP:	1 lstm layer 50 cells followed by dense layers, 1 hidden layer, 1 output layer
+bi50cell2hidd:	1 bi-LSTM layer 50 cells, 2 hidden layer, 1 output layer
+bi60cell1hidd:	1 bi-LSTM layer 60 cells, 1 hidden layer, 1 output layer
+bi40cell1hidd:	1 bi-LSTM layer 40 cells, 1 hidden layer, 1 output layer
++bi70cell1hidd:	1 bi-LSTM layer 70 cells, 1 hidden layer, 1 output layer
+bi70cell1hidd-noPooling:	1 bi-LSTM layer 70 cells no pooling, 1 hidden layer, 1 output layer
+bi70cell1hidd-avgPooling:	1 bi-LSTM layer 70 cells avg pooling, 1 hidden layer, 1 output layer
+bi70cell1hidd-4grams:	1 bi-LSTM layer 70 cells split phrases in 4grams, 1 hidden layer, 1 output layer
+bi70cell1hidd-2grams:	1 bi-LSTM layer 70 cells split phrases in 2grams, 1 hidden layer, 1 output layer
+bi70cell1hidd-noPooling3grams:	1 bi-LSTM layer 70 cells split phrases in 3grams no pooling, 1 hidden layer, 1 output layer
+cnn1x70-1hidd:	1 cnn layer 70 filt, 1 hidden layer, 1 output layer
+cnn2x70-1hidd:	2 cnn layer 70 filt, 1 hidden layer, 1 output layer
+cnn1x70-1hidd-window4:	1 cnn layer 70 filt window 4, 1 hidden layer, 1 output layer
+cnn{1}x{2}-1hidd: {1} cnn layer {2} filt, 1 hidden layer, 1 output layer (best 3x60)
+bi70cell2after2hidd:	1 bi-LSTM layer 70 cells, 2 after layers, 2 hidden layers, 1 output layer
+2bi70cell2after2hidd:	2 bi-LSTM layer 70 cells, 2 after layers, 2 hidden layers, 1 output layer
+bi70cell1hidd-masked:	masked 1 bi-LSTM layer 70 cells, 1 hidden layer, 1 output layer

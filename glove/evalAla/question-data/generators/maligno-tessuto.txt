@@ -1,0 +1,11 @@
+fibrosarcoma connettivo
+liposarcoma adiposo
+condrosarcoma cartilagineo
+osteosarcoma osseo
+leiomiosarcoma liscio
+rabdomiosarcoma striato
+angiosarcoma endotelio
+carcinoma rivestimento
+adenocarcinoma ghiandolari
+glioblastoma glia
+neuroblastoma neuroni

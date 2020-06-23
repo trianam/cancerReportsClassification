@@ -1,0 +1,194 @@
+\documentclass{article}
+\usepackage{multirow}
+\usepackage{acronym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{cleveref}
+\usepackage[draft]{fixme}
+\usepackage{subfigure}
+\usepackage{array}
+\usepackage{rotating}
+\usepackage{tikz}
+\usepackage{pgf}
+\usetikzlibrary{positioning, calc, chains, decorations.pathmorphing, shadows}
+
+% \usepackage{dsfont}
+% \def\RSet{\mathds{R}}
+% \def\NSet{\mathds{N}}
+% \def\ZSet{\mathds{Z}}
+% \def\CSet{\mathds{C}}
+
+\newcommand{\svm}{\textbf{\emph{T-SVM}}}
+\newcommand{\svmb}{\textbf{\emph{T2-SVM}}}
+\newcommand{\lstmng}{\textbf{\emph{T2-2LSTM}}}
+\newcommand{\lstmc}{\textbf{\emph{G-CLSTM}}}
+\newcommand{\lstmb}{\textbf{\emph{G-2LSTM}}}
+
+\newcommand{\site}{site}
+\newcommand{\fullSite}{full site}
+\newcommand{\type}{type}
+\newcommand{\behaviour}{behavior}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\matr}[1]{\bm{#1}}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\dist}[1]{\mathcal{#1}}
+\newcommand{\adist}[1]{\widetilde{\mathcal{#1}}}
+\def\mr{\mathbb{R}}
+\def\mn{\mathbb{N}}
+\def\expect{\mathbb{E}}
+\def\loss{\mathcal{L}}
+
+\newcommand{\dataLabelScale}{0.6}
+\newcommand{\schemeNodeDistance}{0.5cm}
+
+\tikzstyle{every neuron}=[circle, draw, minimum size=1cm]
+\tikzstyle{bias}=[circle,draw]
+\tikzstyle{operation}=[circle,draw]
+\tikzstyle{activation}=[draw]
+\tikzstyle{layer}=[draw,minimum size=1cm]
+\tikzstyle{delay}=[draw,minimum size=0.5cm,fill=black]
+\tikzstyle{neuron missing}=[draw=none, scale=4,text height=0.333cm,execute at begin node=\color{black}$\vdots$]
+\tikzstyle{vmissing}=[draw=none, scale=4,text height=0.333cm,execute at begin node=\color{black}$\vdots$]
+\tikzstyle{hmissing}=[draw=none, scale=4,text width=0.41cm,execute at
+begin node=\color{black}$\cdots$]
+\tikzstyle{line}=[]
+\tikzstyle{arrow}=[->, >=stealth]
+\tikzstyle{arrowInverse}=[<-, >=stealth]
+\tikzstyle{vectorLine}=[line width=0.6mm]
+\tikzstyle{vectorArrow}=[->, >=stealth, line width=0.6mm]
+\tikzstyle{border}=[draw]
+\tikzstyle{dataBlock}=[draw,minimum size=1cm, minimum height=2cm, double copy shadow={shadow xshift=-0.5ex, shadow yshift=-0.5ex}, fill=white]
+\tikzstyle{layer}=[draw,minimum height=2cm]
+\tikzstyle{joined}=[join=by {->}]
+\tikzstyle{support}=[coordinate,join=by {-}]
+\tikzstyle{dataLabel}=[scale=\dataLabelScale]
+
+\newcommand\nodeInput{} % just for safety
+\def\nodeInput(#1){%
+  \node[dataBlock,joined,scale=\dataLabelScale] (#1) {$200$};
+}
+
+\newcommand\nodeEmbedding{} % just for safety
+\def\nodeEmbedding(#1){%
+  \node[layer,joined] (#1) {\rotatebox{90}{Embed}};
+}
+
+\newcommand\nodeGlove{} % just for safety
+\def\nodeGlove(#1){%
+  \node[layer,joined] (#1) {\rotatebox{90}{GloVe}};
+}
+
+\newcommand\nodeConv{} % just for safety
+\def\nodeConv(#1){%
+  \node[layer,joined] (#1) {\rotatebox{90}{Conv 2}};
+}
+
+\newcommand\nodeLstm{} % just for safety
+\def\nodeLstm(#1){%
+  \node[layer,joined] (#1) {\rotatebox{90}{Bi. LSTM}};
+}
+
+\newcommand\nodeAvg{} % just for safety
+\def\nodeAvg(#1){%
+  \node[layer,joined] (#1) {\rotatebox{90}{Avg pool}};
+}
+
+\newcommand\nodeRelu{} % just for safety
+\def\nodeRelu(#1){%
+  \node[layer,joined] (#1) {\rotatebox{90}{ReLU}};
+}
+
+\newcommand\nodeSoftmax{} % just for safety
+\def\nodeSoftmax(#1){%
+  \node[layer,joined] (#1) {\rotatebox{90}{Softmax}};
+}
+
+\makeatletter
+  \providecommand*\setfloatlocations[2]{\@namedef{fps@#1}{#2}}
+\makeatother
+\setfloatlocations{figure}{htbp}
+\setfloatlocations{table}{htbp}
+
+\acrodef{rtt}[RTT]{Registro Tumori della Toscana, Tumor Register of Tuscany}
+\acrodef{icdo}[ICD-O]{International Classification of Diseases for Oncology}
+\acrodef{icdo1}[ICD-O-1]{International Classification of Diseases for Oncology, first edition}
+\acrodef{icdo3}[ICD-O-3]{International Classification of Diseases for Oncology, third edition}
+\acrodef{hdr}[HDR]{Hospital Discharge Register}
+\acrodef{cdf}[CDF]{Cumulative Distribution Function}
+\acrodef{an}[AN]{Artificial Neuron}
+\acrodef{ann}[ANN]{Artificial Neural Network}
+\acrodef{cnn}[CNN]{Convolutional Neural Network}
+\acrodef{rnn}[RNN]{Recurrent Neural Network}
+\acrodef{mlp}[MLP]{Multilayer Perceptron}
+\acrodef{lstm}[LSTM]{Long Short-Term Memory}
+\acrodef{sgd}[SGD]{Stochastic Gradient Descend}
+\acrodef{glove}[GloVe]{Global Vectors}
+\acrodef{nb}[NB]{Naive Bayes}
+\acrodef{svm}[SVM]{Support Vector Machine}
+\acrodef{tfidf}[TF-IDF]{Term-Frequency Inverse-Document-Frequency}
+\acrodef{map}[MAP]{Mean Average Precision}
+\acrodef{relu}[ReLU]{Rectified Linear Unit}
+\begin{document}
+
+Text data is organized in a zero-padded hierarchical structure with:
+\begin{equation*}
+  \matr{X}\in \mr^{n^d\times n^f\times n^p\times n^w\times n^v}
+\end{equation*}
+Where $n^d$ is the number of documents, $n^f$ is the number of fields
+in each document, $n^p$ is the maximum number of phrases in each field, $n^w$
+is the maximum number of words in each phrase, and $n^v$ is the word
+vector dimension.
+
+For document $d\in\{1,\dots,n^d\}$, field $f\in\{1,\dots,n^f\}$, and phrase $p\in\{1,\dots,n^p\}$:
+\begin{eqnarray*}
+  \vect{h}^w_{d,f,p,i}&=&\left. bRNN(\vect{x}_{d,f,p,i};\ \theta^w;\xi^w)\right\rvert_{i=\{1,\dots,n^w\}},\\
+  \vect{x}^w_{d,f,p} &=& \max_{i=\{1,\dots,n^w\}}\ \vect{h}^w_{d,f,p,i},\\
+  \vect{h}^p_{d,f,i}&=&\left. bRNN(\vect{x}^w_{d,f,i};\ \theta^p;\xi^p)\right\rvert_{i=\{1,\dots,n^p\}},\\
+  \vect{x}^w_{d,f} &=& \max_{i=\{1,\dots,n^p\}}\ \vect{h}^p_{d,f,i},\\
+  \vect{h}^f_{d,i}&=&\left. bRNN(\vect{x}^p_{d,i};\ \theta^f;\xi^f)\right\rvert_{i=\{1,\dots,n^f\}},\\
+  \vect{x}^f_{d} &=& \max_{i=\{1,\dots,n^f\}}\ \vect{h}^f_{d,i},\\
+  \tilde{y}_d &=& MLP(\vect{x}^f_d;\ \theta^c;\xi^c). 
+\end{eqnarray*}
+Where $\theta=\theta^w\cup\theta^p\cup\theta^f\cup\theta^c$ and
+$\xi=\xi^w\cup\xi^p\cup\xi^f\cup\xi^c$ are respectively the
+parameters and hyperparameters of the model. The dimensions are:
+\begin{eqnarray*}
+  \matr{H}^w &\in& \mr^{n^d\times n^f\times n^p\times n^w\times m^w},\\
+  \matr{X}^w &\in& \mr^{n^d\times n^f\times n^p\times m^w},\\
+  \matr{H}^p&\in& \mr^{n^d\times n^f\times n^p\times m^p},\\
+  \matr{X}^w &\in& \mr^{n^d\times n^f\times m^p},\\
+  \matr{H}^f&\in& \mr^{n^d\times n^f\times m^f},\\
+  \matr{X}^f &\in& \mr^{n^d\times m^f},\\
+  \vect{\tilde{y}} &\in& \mr^{n^d}. 
+\end{eqnarray*}
+With $m^w$, $m^p$ and $m^f$ the output dimensions of the bidirectional
+\emph{RNN} layers that depend on the hyperparameters $\xi$.
+
+Each \emph{bRNN} model is defined as:
+\begin{eqnarray*}
+  \vect{h}^l_i &=& f(\vect{h}_{i-1}, \vect{x}_i;\ \theta^l;\xi)\\
+  \vect{h}^r_i &=& f(\vect{h}_{i+1}, \vect{x}_i;\ \theta^r;\xi)\\
+  \vect{h}_i &=& g(\vect{h}^l_i, \vect{h}^r_i).
+\end{eqnarray*}
+Where $f$ is a function that depends of the hyperparameters and can be
+$GRU$ or $LSTM$, and $g$ is an aggregator that can be $max(\vect{l},\vect{r})$ or $\frac{1}{2}(\vect{l}+\vect{r})$.
+
+The model is trained minimizing the loss:
+\begin{equation*}
+  \tilde\theta = \argmin_{\theta}\sum_{d=1,\dots,n^{d}}\loss(\tilde y_d, y_d)
+\end{equation*}
+%\bibliographystyle{ieeetr}
+%\bibliography{Oncology}
+
+\end{document}
+
+%  LocalWords:  survivability healthcare ontologies
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

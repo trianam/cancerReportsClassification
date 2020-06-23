@@ -1,0 +1,11 @@
+fibroma fibrosarcoma
+lipoma liposarcoma
+condroma condrosarcoma
+osteoma osteosarcoma
+leiomioma leiomiosarcoma
+rabdomioma rabdomiosarcoma
+emangioma angiosarcoma
+papilloma carcinoma
+adenoma adenocarcinoma
+glioma glioblastoma
+neurocitoma neuroblastoma

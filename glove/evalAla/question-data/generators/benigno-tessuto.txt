@@ -1,0 +1,12 @@
+fibroma connettivo
+lipoma adiposo
+condroma cartilagineo
+osteoma osseo
+leiomioma liscio
+rabdomioma striato
+emangioma endotelio
+meningioma meningi
+papilloma rivestimento
+adenoma ghiandolari
+glioma glia
+neurocitoma neuroni
